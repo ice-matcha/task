@@ -226,4 +226,3 @@ console.log(objProxy.age);
 
 ## ES2017
 
-## ES2018
