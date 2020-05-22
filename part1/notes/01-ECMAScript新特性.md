@@ -123,7 +123,7 @@ let result = testTag`hey, ${name} is a ${gender}.`;
 console.log(result);	//hey, Doubi is a man.
 ```
 
-### 字符串拓扩展方法
+### 字符串扩展方法
 
 startsWith() 字符串中是否以某段字符串开头
 endsWith() 字符串中是否以某段字符串结尾
@@ -163,21 +163,45 @@ arr.map((item) => {
 
 ### Object(新增方法)
 
-Object.preventExtensions(obj)  让一个对象变的不可扩展，也就是永远不能再添加新的属性。
-Object.isExtensible(obj) 判断一个对象是否是可扩展的
-Object.seal(obj) 让一个对象密封(只能读写 不能新增)
-Object.isSealed(obj) 判断一个对象是否密封
-Object.isFrozen(arr)  让一个对象被冻结(只能读)
-Object.isFrozen(obj) 判断一个对象是否被冻结
-Object.keys(obj) 返回一个由给定对象的所有可枚举自身属性的属性名组成的数组
-Object.getOwnPropertyNames(obj) 返回一个由指定对象的所有自身属性的属性名（包括不可枚举属性）组成的数组
-Object.is(value1, value2) 判断两个值是否是同一个值。
-Object.create(proto [, propertiesObject ]) 是E5中提出的一种新的对象创建方式，第一个参数是要继承的原型，如果不是一个子函数，可以传一个null，第二个参数是对象的属性描述符，这个参数是可选的。
-Object.assign 把任意多个的源对象自身的可枚举属性拷贝给目标对象，然后返回目标对象。
-Object.defineProperty() 定义单个对象属性或方法(可以设置读写可枚举)
-Object.defineProperties() 定义多个对象属性或方法(可以设置读写可枚举)
+* Object.preventExtensions(obj)  让一个对象变的不可扩展，也就是永远不能再添加新的属性。
+* Object.isExtensible(obj) 判断一个对象是否是可扩展的
+* Object.seal(obj) 让一个对象密封(只能读写 不能新增)
+* Object.isSealed(obj) 判断一个对象是否密封
+* Object.isFrozen(arr)  让一个对象被冻结(只能读)
+* Object.isFrozen(obj) 判断一个对象是否被冻结
+* Object.keys(obj) 返回一个由给定对象的所有可枚举自身属性的属性名组成的数组
+* Object.getOwnPropertyNames(obj) 返回一个由指定对象的所有自身属性的属性名（包括不可枚举属性）组成的数组
+* Object.is(value1, value2) 判断两个值是否是同一个值。
+* Object.create(proto [, propertiesObject ]) 是E5中提出的一种新的对象创建方式，第一个参数是要继承的原型，如果不是一个子函数，可以传一个null，第二个参数是对象的属性描述符，这个参数是可选的。
+* Object.assign 把任意多个的源对象自身的可枚举属性拷贝给目标对象，然后返回目标对象。
+* Object.defineProperty() 定义单个对象属性或方法(可以设置读写可枚举)
+* Object.defineProperties() 定义多个对象属性或方法(可以设置读写可枚举)
 
 ### Proxy
+
+```javascript
+let obj = {
+	name: 'Doubi',
+	age: 18
+}
+
+const objProxy = new Proxy(obj, {
+	//监听属性读取
+	get(target, handler){
+		return handler in target ? target[handler] : 'undefined';
+		// console.log(target, handler);
+	},
+
+	//监视属性设置
+	set(target, handler, value){
+		target[handler] = value;
+		// console.log(target, handler, value);
+	}
+});
+
+objProxy.age = 20;
+console.log(objProxy.age);
+```
 
 ### Reflect
 
