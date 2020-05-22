@@ -6,11 +6,11 @@
 
 let和const是ES6新增的命令,用于声明变量,与ES5的var不同的是:
 
-1.块级作用域: 在 ES5 中只有全局作用域和函数作用域,没有块级作用域
-2.不存在变量提升: 在 ES5 中，变量可以在声明之前使用,var 命令经常发生变量提升现象,ES6规定let 和 const 命令不发生变量提升
-3.暂时性死区: 如果在代码块中存在 let 或 const 命令，这个区块对这些命令声明的变量，从一开始就形成了封闭作用域,所以在声明之前使用这些变量，会报错
-4.不可重复声明: 在相同的作用域内,let 和 const 命令声明的变量不允许重复声明,var 允许重复定义
-5.声明的全局变量不是全局对象的属性
+1. 块级作用域: 在 ES5 中只有全局作用域和函数作用域,没有块级作用域
+2. 不存在变量提升: 在 ES5 中，变量可以在声明之前使用,var 命令经常发生变量提升现象,ES6规定let 和 const 命令不发生变量提升
+3. 暂时性死区: 如果在代码块中存在 let 或 const 命令，这个区块对这些命令声明的变量，从一开始就形成了封闭作用域,所以在声明之前使用这些变量，会报错
+4. 不可重复声明: 在相同的作用域内,let 和 const 命令声明的变量不允许重复声明,var 允许重复定义
+5. 声明的全局变量不是全局对象的属性
 
 **注意**
 
@@ -137,17 +137,52 @@ console.log(str.endsWith('.'));			//true
 console.log(str.includes('foo'));		//true
 ````
 
-### 展开数组
+### 展开语法
+
+展开语法(Spread syntax), 可以在函数调用/数组构造时, 将数组表达式或者string在语法层面展开；还可以在构造字面量对象时, 将对象表达式按key-value的方式展开。示例:
+
+```javascript
+function sum(x, y, z) {
+  return x + y + z;
+}
+
+const numbers = [1, 2, 3];
+console.log(sum(...numbers)); //6
+```
 
 ### 箭头函数
 
-### Object
+箭头函数表达式的语法比函数表达式更简洁,它适用于那些本来需要匿名函数的地方,箭头函数没有 this,，它只会从自己的作用域链的上一层继承this, 使用示例:
+
+```javascript
+let arr = [1,2,3];
+arr.map((item) => {
+	console.log(item);	//1,2,3
+})
+```
+
+### Object(新增方法)
+
+Object.preventExtensions(obj)  让一个对象变的不可扩展，也就是永远不能再添加新的属性。
+Object.isExtensible(obj) 判断一个对象是否是可扩展的
+Object.seal(obj) 让一个对象密封(只能读写 不能新增)
+Object.isSealed(obj) 判断一个对象是否密封
+Object.isFrozen(arr)  让一个对象被冻结(只能读)
+Object.isFrozen(obj) 判断一个对象是否被冻结
+Object.keys(obj) 返回一个由给定对象的所有可枚举自身属性的属性名组成的数组
+Object.getOwnPropertyNames(obj) 返回一个由指定对象的所有自身属性的属性名（包括不可枚举属性）组成的数组
+Object.is(value1, value2) 判断两个值是否是同一个值。
+Object.create(proto [, propertiesObject ]) 是E5中提出的一种新的对象创建方式，第一个参数是要继承的原型，如果不是一个子函数，可以传一个null，第二个参数是对象的属性描述符，这个参数是可选的。
+Object.assign 把任意多个的源对象自身的可枚举属性拷贝给目标对象，然后返回目标对象。
+Object.defineProperty() 定义单个对象属性或方法(可以设置读写可枚举)
+Object.defineProperties() 定义多个对象属性或方法(可以设置读写可枚举)
 
 ### Proxy
 
 ### Reflect
 
 ### Promise
+(待补充...)
 
 ### class类
 
