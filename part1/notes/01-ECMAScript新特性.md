@@ -179,7 +179,7 @@ arr.map((item) => {
 
 ### Proxy
 
-简单说来就是Proxy可以用来改变对象的默认操作，比如自行定义set和get等，常用的有以下这些((MDN)[https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy])：
+简单说来就是Proxy可以用来改变对象的默认操作，比如自行定义set和get等，常用的有以下这些([MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy))：
 
 * apply
 * construct
@@ -278,7 +278,7 @@ const Doubi = new Person('Doubi');
 Doubi.run(); //Doubi is running
 ```
 
-### (Set)[https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Set]、(Map)[https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Map]
+### [Set](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Set)、[Map](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Map)
 
 **Set**
 ```javascript
