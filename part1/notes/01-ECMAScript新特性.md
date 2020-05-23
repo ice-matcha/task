@@ -179,6 +179,30 @@ arr.map((item) => {
 
 ### Proxy
 
+简单说来就是Proxy可以用来改变对象的默认操作，比如自行定义set和get等，常用的有以下这些((MDN)[https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy])：
+
+* apply
+* construct
+* defineProperty
+* deleteProperty
+* get
+* getOwnPropertyDescriptor
+* getPrototypeOf
+* has
+* isExtensible
+* ownKeys
+* preventExtensions
+* set
+* setPrototypeOf
+
+Proxy中需要理解的三个属性：
+
+* target: an Object which the proxy virtualizes.（目标对象）
+* handler: a Placeholder Object which contains traps.（包含重写方法的对象）
+* trap: the Methods that provide property access of the target object.（重写的方法，比如get和set
+
+**简单使用示例**
+
 ```javascript
 let obj = {
 	name: 'Doubi',
@@ -205,24 +229,192 @@ console.log(objProxy.age);
 
 ### Reflect
 
+Reflect 是一个内置的对象，它提供拦截 JavaScript 操作的方法。这些方法与proxy handlers的方法相同。Reflect不是一个函数对象，因此它是不可构造的([MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect))。支持的方法:
+
+* Reflect.apply()
+* Reflect.construct()
+* Reflect.defineProperty()
+* Reflect.deleteProperty()
+* Reflect.get()
+* Reflect.getOwnPropertyDescriptor()
+* Reflect.getPrototypeOf()
+* Reflect.has()
+* Reflect.isExtensible()
+* Reflect.ownKeys()
+* Reflect.preventExtensions()
+* Reflect.set()
+* Reflect.setPrototypeOf()
+
+**简单示例**
+
+```Javascript
+let obj = {
+ 	name: 'Doubi',
+ 	age: 18
+}
+
+console.log(Reflect.has(obj, 'name')) // true
+console.log(Reflect.deleteProperty(obj, 'age')) //true
+console.log(Reflect.ownKeys(obj)) // ["name"]
+```
+
 ### Promise
 (待补充...)
 
 ### class类
 
-### Set、Map
+```javascript
+class Person {
+ 	constructor (name) {
+    	this.name = name;
+	}
+
+	run () {
+    	console.log(`${this.name} is running`);
+	}
+}
+
+const Doubi = new Person('Doubi');
+Doubi.run(); //Doubi is running
+```
+
+### (Set)[https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Set]、(Map)[https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Map]
+
+**Set**
+```javascript
+//set
+let set1 = new Set([1, 2, 3, 4, 5]);
+console.log(set1.has(1)); // true
+console.log(set1.has(6)); // true
+
+```
+
+**Map**
+Map对象在迭代时会根据对象中元素的插入顺序来进行 — 一个for...of 循环在每次迭代后会返回一个形式为[key，value]的数组
+
+```javascript
+let m = new Map()
+let Doubi = { name: 'Doubi' }
+
+m.set(Doubi, 18)
+console.log(m)
+
+console.log(m.get(Doubi))
+
+m.forEach((value, key) => {
+  console.log(value, key)
+})
+```
 
 ### Symbol
 
+symbol 是一种基本数据类型 （primitive data type）。Symbol()函数会返回symbol类型的值，该类型具有静态属性和静态方法。它的静态属性会暴露几个内建的成员对象；它的静态方法会暴露全局的symbol注册，且类似于内建对象类，但作为构造函数来说它并不完整，因为它不支持语法："new Symbol()"。
+每个从Symbol()返回的symbol值都是唯一的。一个symbol值能作为对象属性的标识符；这是该数据类型仅有的目的。
+
+```javascript
+const symbol1 = Symbol();
+const symbol2 = Symbol(12);
+const symbol3 = Symbol('foo');
+
+console.log(typeof symbol1); //symbol
+console.log(symbol2 === 12); //false
+console.log(symbol3.toString()); //Symbol(foo)
+console.log(Symbol('foo') === Symbol('foo')); //false
+```
+
 ### for...of循环
 
-### 可迭代接口
+```javascript
+/**
+ * for...of 循环可以替代 数组对象的 forEach 方法
+ * forEach 无法跳出循环，必须使用 some 或者 every 方法
+ * 遍历 Set 与遍历数组相同
+ * 遍历 Map 可以配合数组结构语法，直接获取键值
+ * 普通对象不能被直接 for...of 遍历
+ */
 
-### 生成器
+let arr = [100, 200, 300, 400]
+
+for (const item of arr) {
+  console.log(item)
+}
+```
+
+### [可迭代接口与生成器](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Iterators_and_Generators)
+
+**Iterator迭代器**
+
+```javascript
+function makeRangeIterator(start = 0, end = Infinity, step = 1) {
+    let nextIndex = start;
+    let iterationCount = 0;
+
+    const rangeIterator = {
+       next: function() {
+           let result;
+           if (nextIndex < end) {
+               result = { value: nextIndex, done: false }
+               nextIndex += step;
+               iterationCount++;
+               return result;
+           }
+           return { value: iterationCount, done: true }
+       }
+    };
+    return rangeIterator;
+}
+
+let it = makeRangeIterator(1, 10, 2);
+console.log(it.next()); //{value: 1, done: false}
+console.log(it.next()); //{value: 3, done: false}
+console.log(it.next()); //{value: 5, done: false}
+
+let result = it.next();
+while (!result.done) {
+	console.log(result.value); // 7,9
+	result = it.next();
+}
+```
+
+**生成器**
+
+```javascript
+let todos = {
+	life: ['吃饭', '睡觉', '打豆豆'],
+	learn: ['语文', '数学', '外语'],
+	work: ['喝茶'],
+
+	// 提供统一遍历访问接口
+	each: function (callback) {
+		const all = [].concat(this.life, this.learn, this.work);
+		for (const item of all) {
+		  	callback(item);
+		}
+	},
+
+	// 提供迭代器（ES2015 统一遍历访问接口）
+	[Symbol.iterator]: function () {
+		const all = [...this.life, ...this.learn, ...this.work];
+		let index = 0;
+		return {
+		  	next: function () {
+			    return {
+					value: all[index],
+					done: index++ >= all.length
+			    }
+		  	}
+		}
+	}
+}
+
+todos.each(function (item) {
+ 	console.log(item);
+})
+
+for (let item of todos) {
+ 	console.log(item);
+}
+```
 
 ### Modules
-
-## ES2016
-
-## ES2017
-
+(待补充...)
