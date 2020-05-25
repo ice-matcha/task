@@ -88,13 +88,22 @@ symbol 是一种基本数据类型 （primitive data type）。Symbol()函数会
 
 是指建一个新的 对象/数组，将 原对象的各项属性的值/原数组的所有元素 拷贝过来，在改变新的 数组/对象 时，不会改变 原数组/对象(可以理解为:传值)。
 
-## 8.js异步编程、Event Loop、宏任务和为任务
+## 8.js异步编程、Event Loop、宏任务与微任务
 
 **js异步编程**
 
 无论是在浏览器端还是在服务器 ( Node ) 端，JS 的执行都是在单线程下进行的，也就是指一次只能完成一个任务，如果有多个任务的时必须要排队，后面的任务必须要等待前面的任务完成才能执行，在这种单线程模式下执行的效率较低，任务耗时长，而异步就是为了解决这个问题的主要目的。
-异步编程(待补充...)
+异步编程可以理解为在异步操作完成后所要做的任务，它们通常以回调函数或者 Promise 的形式被放入事件队列，再由事件循环 ( Event Loop ) 机制在每次轮询时检查异步操作是否完成，若完成则按事件队列里面的执行规则来依次执行相应的任务。
 
+**Event Loop**
+
+Event Loop即事件循环，是指浏览器或Node的一种解决javaScript单线程运行时不会阻塞的一种机制，也就是我们经常使用异步的原理。在JavaScript中，任务被分为两种，一种宏任务（MacroTask）也叫Task，一种叫微任务（MicroTask）。
+
+**宏任务(macrotask)、微任务(microtask)**
+
+宏任务(macrotask)： setTimeout、 setInterval、setImmediate,I/O、UI rendering
+微任务(microtask)：process.nextTick、Promises、Object.observe、MutationObserver
+它们的区别在于在事件循环中，每次只会执行一个macrotask，而所有microtask都会依次执行直到为空。并且每次主线程任务被清空时，先执行所有microtask，再去执行一个macrotask。
 
 ## 9.Promise改进后的代码
 
@@ -103,4 +112,38 @@ symbol 是一种基本数据类型 （primitive data type）。Symbol()函数会
 
 ## 10.TypeScript和JavaScript的区别
 
+在TypeStript的中文官方文档中的描述是:TypeScript 是 JavaScript 的一个超集，但我个人的理解是TypeScript是JavaScript的补充；它们各自的特点如下:
+
+JavaScript 语言具有以下特点：
+
+* 一种脚本编写语言，无需编译，只要嵌入 HTML 代码中，就能由浏览器逐行加载解释执行。
+* 一种基于对象的语言，可以创建对象同时使用现有对象。但是 Javascript 并不支持其它面向对象语言所具有的继承和重载功能。
+* 语法简单，使用的变量为弱类型。
+* 较为安全，仅在浏览器端执行，不会访问本地硬盘数据。
+* 具有动态性。JavaScript 是事件驱动的，只根据用户的操作做出相应的反应处理。
+* 只依赖于浏览器，与操作系统的因素无关。因此 JavaScript 是一种跨平台的语言。
+* 兼容性较好，能够与其他技术（如 XML，REST API 等）一起使用。
+
+TypeScript 具有以下特点：
+
+* 它是 Microsoft 推出的开源语言，使用 Apache 授权协议
+* 增加了静态类型、类、模块、接口和类型注解
+* 可用于开发大型的应用
+* 易学易于理解
+
 ## 11.TypeScript的优缺点
+
+优点:
+
+* TypeScript 是 JavaScript 的补充，.js 文件可以直接重命名为 .ts 即可
+* 即使不显式的定义类型，也能够自动做出类型推论
+* 可以定义从简单到复杂的几乎一切类型
+* 即使 TypeScript 编译报错，也可以生成 JavaScript 文件
+* 兼容第三方库，即使第三方库不是用 TypeScript 写的，也可以编写单独的类型文件供 TypeScript 读取
+
+缺点:
+
+* 有一定的学习成本，需要理解接口（Interfaces）、泛型（Generics）、类（Classes）、枚举类型（Enums）等前端工程师可能不是很熟悉的概念
+* 短期可能会增加一些开发成本，毕竟要多写一些类型的定义，不过对于一个需要长期维护的项目，TypeScript 能够减少其维护成本
+* 集成到构建流程需要一些工作量
+* 可能和一些库结合的不是很完美
