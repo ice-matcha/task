@@ -42,3 +42,15 @@ obj.fn();	//20
 */
 
 //第9题
+const p = new Promise(resolve => {
+	let a = "Hello";
+	resolve(a);
+});
+
+p.then(res => {
+	let b = "Doubi";
+	return res + b;
+}).then(res => {
+	let c = "I Love You";
+	console.log(res + c);
+});

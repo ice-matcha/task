@@ -108,6 +108,18 @@ Event Loop即事件循环，是指浏览器或Node的一种解决javaScript单�
 ## 9.Promise改进后的代码
 
 ```javascript
+const p = new Promise(resolve => {
+	let a = "Hello";
+	resolve(a);
+});
+
+p.then(res => {
+	let b = "ice-cream";
+	return res + b;
+}).then(res => {
+	let c = "I Love You";
+	console.log(res + c);
+});
 ```
 
 ## 10.TypeScript和JavaScript的区别
