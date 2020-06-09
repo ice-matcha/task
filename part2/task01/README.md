@@ -29,7 +29,9 @@
 
 ### 二、
 
-(待搜索资料补充)
+随着前端工程化的概念越来越深入人心，脚手架的出现就是为减少重复性工作而引入的命令行工具；现在新建一个前端项目，已经不是在html头部引入css，尾部引入js那么简单的事了，css都是采用Sass或则Less编写，在js中引入，然后动态构建注入到html中；除了学习基本的js，css语法和热门框架，还需要学习构建工具webpack，babel这些怎么配置，怎么起前端服务，如何热更新;为了在编写过程中让编辑器协助查错以及规范，还需要引入ESlint；甚至，有些项目还需要引入单元测试（Jest）。
+对于一个刚入门的人来说，这无疑会让人望而却步。而前端脚手架的出现，就让事情简单化，一键命令，新建一个工程，再执行两个命令，运行一个项目。
+在入门时，无需关注配置等其他，只需要关心项目的业务逻辑；即使是多人协作开发，用脚手架来构建项目，都遵循着相同的项目结构与代码书写规范，这很利于项目的开发以及后期维护。
 
 ## 编程题
 
@@ -39,10 +41,10 @@
 
 ### 二、
 
-[做虐代码地址](https://github.com/ice-matcha/task/tree/master/part2/task01/code/gulp)
+[做虐代码地址](https://github.com/ice-matcha/task/tree/master/part2/task01/code/gulp) : https://github.com/ice-matcha/task/tree/master/part2/task01/code/gulp
 
 ### 三、
 
 这题搞不定，就差useref这块了
 
-[做虐代码地址](https://github.com/ice-matcha/task/tree/master/part2/task01/code/grunt)
+[做虐代码地址](https://github.com/ice-matcha/task/tree/master/part2/task01/code/grunt) : https://github.com/ice-matcha/task/tree/master/part2/task01/code/grunt
