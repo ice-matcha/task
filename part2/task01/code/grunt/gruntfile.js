@@ -56,7 +56,7 @@ module.exports = grunt => {
 			},
 			main: {
 				files: {
-				  'dist/css/main.css': 'src/assets/styles/main.scss'
+				  'dist/temp/main.css': 'src/assets/styles/main.scss'
 				}
 			}
 		},
@@ -69,7 +69,7 @@ module.exports = grunt => {
 			},
 			main: {
 				files: {
-				  'dist/js/main.js': 'src/assets/scripts/main.js'
+				  'dist/temp/main.js': 'src/assets/scripts/main.js'
 				}
 			}
 		},
@@ -77,31 +77,25 @@ module.exports = grunt => {
 		//编译模板
 		swigtemplates: {
 			options: {
-				defaultContext: {
-					// pageTitle: 'My Title'
-					menus: data.menus,
-                    date: data.date
-				},
+				defaultContext: { data },
 				templatesDir: 'src'
 			},
 			production: {
 				dest: 'dist',
 				src: ['src/*.html']
 			}
-			// staging: {
-			// 	context: {
-			// 		pageTitle: 'My Title (staging)'
-			// 	},
-			// 	dest: 'build/staging/',
-			// 	src: ['src/swig/**/*.swig']
-			// }
 		},
+
+		useref: {
+            html: "dist/*.html",
+            temp: "dist"
+        },
 
 		//压缩javascript
 		uglify: {
 			my_target: {
 				files: {
-					'dist/js/main.min.js': ['dist/js/main.js']
+					'dist/assets/scripts/main.js': ['dist/temp/main.js']
 				}
 			}
 		},
@@ -111,10 +105,10 @@ module.exports = grunt => {
 			target: {
 				files: [{
 					expand: true,
-					cwd: 'dist/css/',
+					cwd: 'dist/temp/',
 					src: ['*.css', '!*.min.css'],
-					dest: 'dist/css/',
-					ext: '.min.css'
+					dest: 'dist/assets/styles/',
+					ext: '.css'
 				}]
 			}
 		},
@@ -170,7 +164,7 @@ module.exports = grunt => {
         	}
         }
 
-		/*
+        /*
 		//监听
 		watch: {
 			js: {
@@ -187,6 +181,8 @@ module.exports = grunt => {
 
 	loadGruntTasks(grunt) // 自动加载所有的 grunt 插件中的任务
 
+	grunt.registerTask('build', ['clean','sass','babel','swigtemplates','useref','imagemin','svgmin','copy','htmlmin','uglify','cssmin'])
+
 	grunt.registerTask('default', [
 		'sass',
 		'babel',
@@ -197,6 +193,7 @@ module.exports = grunt => {
 		'htmlmin',
 		'imagemin',
 		'svgmin',
-		'copy'
+		'copy',
+		'useref'
 	])
 }

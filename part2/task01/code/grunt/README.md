@@ -32,7 +32,7 @@
 
 ## 使用方式
 
-安装: yarn install 
-清除: yarn clean
-开发: yarn dev
-构建: yarn build
+* 安装: yarn install 
+* 清除: yarn grunt clean
+* 开发: 
+* 构建: yarn grunt build --force
