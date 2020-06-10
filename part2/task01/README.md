@@ -37,7 +37,7 @@
 
 ### 一、
 
-(代码正在完善)
+[做虐代码地址](https://github.com/ice-matcha/task/tree/master/part2/task01/code/sample) : https://github.com/ice-matcha/task/tree/master/part2/task01/code/sample
 
 ### 二、
 
