@@ -486,3 +486,4 @@ class Dep{
 
 到此为止，模拟实现vue就完成了，还有部分vue指令阔以继续增加完善，完善的项目仓库地址：
 
+[https://github.com/ice-matcha/task/tree/master/part3/task01/exercise/mini-vue](https://github.com/ice-matcha/task/tree/master/part3/task01/exercise/mini-vue) 
