@@ -1,0 +1,15 @@
+/**
+ * 通用同构入口
+ */
+import Vue from 'vue';
+import App from './App.vue';
+
+// export a factory function for creating fresh app, router and store
+// instances
+export function createApp () {
+    const app = new Vue({
+        // the root instance simply renders the App component.
+        render: h => h(App)
+    })
+    return { app };
+}
