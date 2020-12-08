@@ -10,6 +10,10 @@ interface User {
   password: string
 }
 
+/**
+ * 登录
+ * @param data
+ */
 export const login = (data: User) => {
   return request({
     method: 'POST',
@@ -22,6 +26,9 @@ export const login = (data: User) => {
   })
 }
 
+/**
+ * 获取用户信息
+ */
 export const getUserInfo = () => {
   return request({
     method: 'GET',
@@ -32,10 +39,28 @@ export const getUserInfo = () => {
   })
 }
 
+/**
+ * 分页查询用户信息
+ * @param data
+ */
 export const getUserPages = (data: User) => {
   return request({
     method: 'POST',
     url: '/boss/user/getUserPages',
     data
+  })
+}
+
+/**
+ * 禁用用户
+ * @param userId
+ */
+export const forbidUser = (userId: number) => {
+  return request({
+    method: 'POST',
+    url: '/boss/role/forbidUser',
+    data: {
+      userId
+    }
   })
 }

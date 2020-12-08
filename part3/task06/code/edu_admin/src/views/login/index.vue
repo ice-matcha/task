@@ -40,7 +40,7 @@ export default Vue.extend({
     return {
       isLoginLoading: false,
       form: {
-        phone: '18631142257',
+        phone: '15510792995',
         password: '111111'
       },
       rules: {
@@ -68,7 +68,7 @@ export default Vue.extend({
 
         // 2. 验证通过 -> 提交表单
         const { data } = await login(this.form)
-        console.log(data)
+        // console.log(data)
         // 3. 处理请求结果
         if (data.state !== 1) {
           this.isLoginLoading = false

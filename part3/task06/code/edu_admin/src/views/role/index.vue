@@ -1,13 +1,17 @@
 <template>
-  <div class="role">角色管理</div>
+  <list />
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import List from './components/List.vue'
 
 export default Vue.extend({
-  name: 'LoginIndex'
+  components: { List },
+  name: 'RoleIndex'
 })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+</style>
