@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :title="title" :visible.sync="dialogVisible">
+  <el-dialog :title="title" :visible.sync="dialogVisible" :before-close="closeDialog">
     <el-form :model="form">
       <el-form-item label="类别名称" :label-width="formLabelWidth">
         <el-input v-model="form.name" autocomplete="off"></el-input>
@@ -71,6 +71,10 @@ export default class CategoryForm extends Vue {
         message: '操作失败!'
       })
     }
+  }
+
+  private closeDialog () {
+    this.$emit('update:visible', false)
   }
 }
 </script>

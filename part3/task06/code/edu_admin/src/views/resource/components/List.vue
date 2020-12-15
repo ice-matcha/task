@@ -100,7 +100,7 @@ import ResourceForm from './ResourceForm.vue'
 @Component({
   components: { ResourceForm }
 })
-export default class RoleList extends Vue {
+export default class List extends Vue {
   $refs!: {
     form: Form
   }

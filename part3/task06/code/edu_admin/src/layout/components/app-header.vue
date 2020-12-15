@@ -1,69 +1,72 @@
 <template>
   <div class="header">
+    <el-button @click="handleCollapse" class="collapse-btn" type="text">
+      <i :class="collapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'"></i>
+    </el-button>
+
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>活动管理</el-breadcrumb-item>
-      <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-      <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+      <el-breadcrumb-item>首页</el-breadcrumb-item>
+      <el-breadcrumb-item>{{ $store.state.title }}</el-breadcrumb-item>
     </el-breadcrumb>
-    <el-dropdown>
-    <span class="el-dropdown-link">
-      <el-avatar shape="square" :size="30" :src="userInfo.portrait || require('../../assets/images/avatar.jpg')"></el-avatar>
-      <i class="el-icon-arrow-down el-icon--right"></i>
-    </span>
-    <el-dropdown-menu slot="dropdown">
-      <el-dropdown-item>{{userInfo.userName}}</el-dropdown-item>
-      <el-dropdown-item divided @click.native="handleLogout">退出</el-dropdown-item>
-    </el-dropdown-menu>
-  </el-dropdown>
+
+    <el-dropdown @command="handleCommand" class="drop-menu">
+      <span class="el-dropdown-link">
+        <el-avatar
+          shape="square"
+          :size="40"
+          :src="userInfo.portrait || require('../../assets/images/avatar.jpg')"
+        ></el-avatar>
+        <i class="el-icon-arrow-down el-icon--right"></i>
+      </span>
+      <el-dropdown-menu slot="dropdown">
+        <el-dropdown-item>{{ userInfo.userName }}</el-dropdown-item>
+        <el-dropdown-item divided command="logout">退出</el-dropdown-item>
+      </el-dropdown-menu>
+    </el-dropdown>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import { Vue, Component, Prop } from 'vue-property-decorator'
 import { getUserInfo } from '@/api/user'
 
-export default Vue.extend({
-  name: 'AppHeader',
-  data () {
-    return {
-      userInfo: {} // 当前登录用户信息
-    }
-  },
-  created () {
+@Component
+export default class AppHeader extends Vue {
+  private userInfo = {}
+
+  private mounted () {
     this.loadUserInfo()
-    // this.loadUserInfo() // 测试同时只能刷新一次 token
-  },
-  methods: {
-    async loadUserInfo () {
-      const { data } = await getUserInfo()
-      this.userInfo = data.content
-    },
-    handleLogout () {
-      this.$confirm('确认退出吗?', '退出提示', {
+  }
+
+  private async loadUserInfo () {
+    const {
+      data: { content }
+    } = await getUserInfo()
+    this.userInfo = content
+  }
+
+  private handleCommand (command: string) {
+    if (command === 'logout') {
+      this.$confirm('确认退出吗?', '退出登录', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
-      }).then(() => { // 确认执行
-        // 清除登录状态
-        this.$store.commit('setUser', null) // 此时清空了容器中的数据，也清空了本地存储
-        // 跳转到登录页
-        this.$router.push({
-          name: 'login'
-        })
-        this.$message({
-          type: 'success',
-          message: '退出成功!'
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消退出'
-        })
-      })
+      }).then(() => {
+        this.$store.commit('setUser', null)
+        this.$router.push({ name: 'login' })
+        this.$message('退出登录成功')
+      }).catch()
     }
   }
-})
+
+  private handleCollapse () {
+    this.$store.commit('setCollapseSideMenu', !this.collapse)
+  }
+
+  private get collapse (): boolean {
+    return this.$store.state.collapseSideMenu
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -71,10 +74,19 @@ export default Vue.extend({
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  .el-dropdown-link {
-    display: flex;
-    align-items: center;
+  padding: 0;
+  .collapse-btn {
+    height: 50px;
+    width: 50px;
+    font-size: larger;
+    color: #1e1e1e;
+  }
+  .drop-menu {
+    margin-left: auto;
+    .el-dropdown-link {
+      display: flex;
+      align-items: center;
+    }
   }
 }
 </style>

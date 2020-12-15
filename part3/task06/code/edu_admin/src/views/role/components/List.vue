@@ -78,7 +78,7 @@ import RoleForm from './RoleForm.vue'
 @Component({
   components: { RoleForm }
 })
-export default class RoleList extends Vue {
+export default class List extends Vue {
   $refs!: {
     form: Form
   }

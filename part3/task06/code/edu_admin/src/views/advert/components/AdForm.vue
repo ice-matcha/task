@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :title="title" :visible.sync="dialogVisible">
+  <el-dialog :title="title" :visible.sync="dialogVisible" :before-close="closeDialog">
     <el-form :model="form">
       <el-form-item prop="name" label="广告名称" required :label-width="formLabelWidth">
         <el-input v-model="form.name" required />
@@ -81,10 +81,19 @@ export default class AdFrom extends Vue {
   private visible!: boolean
 
   private dialogVisible = false
-  private form: Partial<Ad> = {}
   private spaces: AdSpace[] = []
   private imageTypes: string[] = ImageTypes
   private defaultImg = ''
+  private form: Partial<Ad> = {
+    name: '',
+    spaceId: 0,
+    startTime: '',
+    endTime: '',
+    status: 1,
+    img: '',
+    link: '',
+    text: ''
+  }
 
   @Watch('visible')
   changeVisible (newValue: boolean) {
@@ -130,13 +139,19 @@ export default class AdFrom extends Vue {
     this.$emit('update:visible', false)
   }
 
+  private closeDialog () {
+    this.$emit('update:visible', false)
+  }
+
   private async onSubmit () {
     const data = await createOrUpdateAd(this.form)
-    console.log(data)
-    // if (data.data.code === '000000') {
-    //   this.$emit('update:visible', false)
-    //   this.$emit('update', true)
-    // }
+    this.$emit('update:visible', false)
+    this.$emit('update', true)
+    if (data.status === 200) {
+      this.$message.success('success')
+    } else {
+      this.$message.error(data.data.message)
+    }
   }
 }
 </script>

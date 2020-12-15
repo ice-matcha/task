@@ -63,7 +63,7 @@ import CategoryForm from './CategoryForm.vue'
 @Component({
   components: { CategoryForm }
 })
-export default class RoleList extends Vue {
+export default class CategoryList extends Vue {
   private init: ResourceCategory & any = {}
 
   private resourceCategories: ResourceCategory[] = []

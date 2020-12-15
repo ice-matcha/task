@@ -1,19 +1,8 @@
 <template>
-  <el-dialog :title="title" :visible.sync="dialogVisible">
+  <el-dialog :title="title" :visible.sync="dialogVisible" :before-close="closeDialog">
     <el-form :model="form">
-      <el-form-item label="角色名称" :label-width="formLabelWidth">
+      <el-form-item label="广告位名称" :label-width="formLabelWidth">
         <el-input v-model="form.name" autocomplete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="角色编码" :label-width="formLabelWidth">
-        <el-input v-model="form.code" autocomplete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="描述" :label-width="formLabelWidth">
-        <el-input
-          type="textarea"
-          :rows="3"
-          placeholder="请输入描述"
-          v-model="form.description">
-        </el-input>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -24,8 +13,8 @@
 </template>
 <script lang='ts'>
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
-import { RoleForm, Roles, saveOrUpdateRole } from '@/api/role'
 import { Form } from 'element-ui'
+import { AdSpaceForm, AdSpace, createOrUpdateAdSpace } from '@/api/advert'
 
 @Component
 export default class RoleFrom extends Vue {
@@ -36,10 +25,8 @@ export default class RoleFrom extends Vue {
   private visible!: boolean
 
   private dialogVisible = false
-  private form: RoleForm = {
-    name: '',
-    code: '',
-    description: ''
+  private form: AdSpaceForm = {
+    name: ''
   }
 
   @Watch('visible')
@@ -51,12 +38,10 @@ export default class RoleFrom extends Vue {
   private init!: Form
 
   @Watch('init')
-  changeInit (newVal: Roles) {
+  changeInit (newVal: AdSpace) {
     if (newVal) {
       this.form.id = newVal.id
       this.form.name = newVal.name
-      this.form.code = newVal.code
-      this.form.description = newVal.description
     }
   }
 
@@ -66,11 +51,18 @@ export default class RoleFrom extends Vue {
     this.$emit('update:visible', false)
   }
 
+  private closeDialog () {
+    this.$emit('update:visible', false)
+  }
+
   private async onSubmit () {
-    const data = await saveOrUpdateRole(this.form)
-    if (data.data.code === '000000') {
-      this.$emit('update:visible', false)
-      this.$emit('update', true)
+    const data = await createOrUpdateAdSpace(this.form)
+    this.$emit('update:visible', false)
+    this.$emit('update', true)
+    if (data.status === 200) {
+      this.$message.success('success')
+    } else {
+      this.$message.error(data.data.message)
     }
   }
 }

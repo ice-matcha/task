@@ -90,7 +90,7 @@ import { CourseQuery, Course, getCoursesPages, changeCourseState } from '@/api/c
 @Component({
   components: {}
 })
-export default class RoleList extends Vue {
+export default class List extends Vue {
   $refs!: {
     form: Form
   }
@@ -177,14 +177,30 @@ export default class RoleList extends Vue {
    * 添加课程
    */
   private addCourse () {
-    console.log(123)
+    this.$router.push({
+      name: 'course-create'
+    })
   }
 
   /**
    * 编辑课程
    */
   private editCourse (course: Course) {
-    console.log(course)
+    this.$router.push({
+      name: 'course-edit',
+      params: {
+        courseId: `${course.id}`
+      }
+    })
+  }
+
+  private handleSection (course: Course) {
+    this.$router.push({
+      name: 'course-section',
+      params: {
+        courseId: `${course.id}`
+      }
+    })
   }
 }
 </script>

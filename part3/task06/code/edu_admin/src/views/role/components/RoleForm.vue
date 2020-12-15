@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :title="title" :visible.sync="dialogVisible">
+  <el-dialog :title="title" :visible.sync="dialogVisible" :before-close="closeDialog">
     <el-form :model="form">
       <el-form-item label="角色名称" :label-width="formLabelWidth">
         <el-input v-model="form.name" autocomplete="off"></el-input>
@@ -63,6 +63,10 @@ export default class RoleFrom extends Vue {
   private formLabelWidth = '120px'
 
   private toClose () {
+    this.$emit('update:visible', false)
+  }
+
+  private closeDialog () {
     this.$emit('update:visible', false)
   }
 

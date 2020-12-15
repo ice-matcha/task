@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :title="title" :visible.sync="dialogVisible">
+  <el-dialog :title="title" :visible.sync="dialogVisible" :before-close="closeDialog">
     <el-form :model="form">
       <el-form-item label="菜单名称" :label-width="formLabelWidth">
         <el-input v-model="form.name" autocomplete="off"></el-input>
@@ -91,6 +91,10 @@ export default class MenuForm extends Vue {
 
   created () {
     this.toGetEditMenuInfo()
+  }
+
+  private closeDialog () {
+    this.$emit('update:visible', false)
   }
 
   private async toGetEditMenuInfo () {

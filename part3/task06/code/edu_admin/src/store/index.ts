@@ -5,13 +5,21 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    user: JSON.parse(window.localStorage.getItem('user') || 'null') // 当前登录用户状态
+    user: JSON.parse(window.localStorage.getItem('user') || 'null'), // 当前登录用户状态
+    collapseSideMenu: false,
+    title: ''
   },
   mutations: {
     // 修改容器数据，必须使用mutation函数
     setUser (state, payload) {
       state.user = JSON.parse(payload)
       window.localStorage.setItem('user', payload)
+    },
+    setCollapseSideMenu (state, payload) {
+      state.collapseSideMenu = payload
+    },
+    setTitle (state, payload) {
+      state.title = payload
     }
   },
   actions: {
