@@ -33,16 +33,23 @@ const routes: Array<RouteConfig> = [
         name: 'role',
         component: () => import(/* webpackChunkName: 'role' */ '@/views/role/index.vue')
       },
-      // {
-      //   path: '/advert',
-      //   name: 'advert',
-      //   component: () => import(/* webpackChunkName: 'advert' */ '@/views/advert/index.vue')
-      // },
-      // {
-      //   path: '/advert-space',
-      //   name: 'advert-space',
-      //   component: () => import(/* webpackChunkName: 'advert-space' */ '@/views/advert-space/index.vue')
-      // },
+      {
+        name: 'assign-menu',
+        path: '/role/:roleId/assign-menu',
+        component: () => import(/* webpackChunkName: 'assign-menu' */ '@/views/menu/assign-menu.vue'),
+        props: true
+      },
+      {
+        name: 'assign-resource',
+        path: '/role/:roleId/assign-resource',
+        component: () => import(/* webpackChunkName: 'assign-resource' */ '@/views/resource/assign-resource.vue'),
+        props: true
+      },
+      {
+        name: 'category',
+        path: '/category',
+        component: () => import(/* webpackChunkName: 'category' */ '@/views/resource/category.vue')
+      },
       {
         path: '/menu',
         name: 'menu',
@@ -57,37 +64,17 @@ const routes: Array<RouteConfig> = [
         path: '/course',
         name: 'course',
         component: () => import(/* webpackChunkName: 'course' */ '@/views/course/index.vue')
+      },
+      {
+        path: '/advert',
+        name: 'advert',
+        component: () => import(/* webpackChunkName: 'advert' */ '@/views/advert/index.vue')
+      },
+      {
+        path: '/advert-space',
+        name: 'advert-space',
+        component: () => import(/* webpackChunkName: 'advert-space' */ '@/views/advert-space/index.vue')
       }
-      // {
-      //   path: '/menu/create',
-      //   name: 'menu-create',
-      //   component: () => import(/* webpackChunkName: 'menu-create-edit' */ '@/views/menu/create.vue')
-      // },
-      // {
-      //   path: '/menu/:id/edit',
-      //   name: 'menu-edit',
-      //   component: () => import(/* webpackChunkName: 'menu-create-edit' */ '@/views/menu/edit.vue')
-      // },
-      // {
-      //   path: '/advert-space/create',
-      //   name: 'advert-space-create',
-      //   component: () => import(/* webpackChunkName: 'advert-create-create' */ '@/views/advert-space/create.vue')
-      // },
-      // {
-      //   path: '/advert-space/:id/edit',
-      //   name: 'advert-space-edit',
-      //   component: () => import(/* webpackChunkName: 'advert-create-edit' */ '@/views/advert-space/edit.vue')
-      // },
-      // {
-      //   path: '/course/create',
-      //   name: 'course-create',
-      //   component: () => import(/* webpackChunkName: 'course' */ '@/views/course/create.vue')
-      // },
-      // {
-      //   path: '/course/:courseId/edit',
-      //   name: 'course-edit',
-      //   component: () => import(/* webpackChunkName: 'course' */ '@/views/course/edit.vue')
-      // }
     ]
   },
   {

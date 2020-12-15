@@ -1,14 +1,14 @@
 <template>
-  <list />
+  <CategoryList />
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import List from './components/List.vue'
+import CategoryList from './components/CategoryList.vue'
 
 export default Vue.extend({
-  components: { List },
-  name: 'ResourceIndex'
+  components: { CategoryList },
+  name: 'CategoryIndex'
 })
 </script>
 
