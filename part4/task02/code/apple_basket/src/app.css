@@ -1,0 +1,105 @@
+.app {
+  width: 500px;
+  border: 1px solid #ddd;
+  margin: 50px auto;
+}
+
+.total {
+  width: 480px;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.total_title {
+  width: 480px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 20px;
+  color: #069;
+  text-align: center;
+  border-bottom: 1px dashed #ccc;
+}
+
+.stats {
+  height: 80px;
+}
+
+.section {
+  width: 46%;
+  float: left;
+  padding-top: 10px;
+  padding-left: 2%;
+  font-size: 18px;
+}
+
+.section_title {
+  padding: 6px 0px;
+  color: #069;
+}
+
+.list {
+  width: 480px;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.empty-tip {
+  text-align: center;
+  font-size: 16px;
+  color: #ccc;
+  padding: 20px 0;
+}
+
+.apple-item {
+  width: 420px;
+  margin: 10px auto;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.btn_eat {
+  background-color: #4C9AD7;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+
+.btn_eat:hover {
+  background-color: #62B2F2;
+}
+
+.footer {
+  text-align: center;
+}
+
+.footer button {
+  border: none;
+  background-color: #096;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 13px 50px;
+  border-radius: 6px;
+  margin: 20px auto;
+  outline: none;
+}
+
+.footer button:hover {
+  background-color: #55d98d
+}
+
+.footer button.disabled {
+  background-color: #95a5a6;
+  cursor: default;
+  opacity: 0.65;
+}
